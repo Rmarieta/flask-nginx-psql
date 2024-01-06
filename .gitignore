@@ -1,1 +1,11 @@
+venv/
 .env
+
+!.env.example
+
+*.pyc
+__pycache__/
+
+*.ipynb
+
+nginx/ssl-certs/*
