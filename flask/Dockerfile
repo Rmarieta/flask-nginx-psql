@@ -11,4 +11,11 @@ RUN pip install -r requirements.txt
 
 EXPOSE 5000
 
-CMD [ "python", "application.py"]
+# create the user
+RUN adduser --disabled-password --gecos '' flaskuser
+USER flaskuser
+
+# CMD python application.py
+# CMD python application.py run --debug --host 0.0.0.0
+
+CMD gunicorn --access-logfile '-' --workers 2 --threads 3 --bind flask:5000 application:application
