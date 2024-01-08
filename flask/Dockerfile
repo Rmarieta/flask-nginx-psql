@@ -18,4 +18,7 @@ USER flaskuser
 # CMD python application.py
 # CMD python application.py run --debug --host 0.0.0.0
 
-CMD gunicorn --access-logfile '-' --workers 2 --threads 3 --bind flask:5000 application:application
+# without Flask-SocketIO
+# CMD gunicorn --access-logfile '-' --workers 1 --threads 4 --bind flask:5000 application:application
+# with Flask-SocketIO
+CMD gunicorn --access-logfile '-' --worker-class eventlet --workers 1 --threads 4 --bind flask:5000 application:application

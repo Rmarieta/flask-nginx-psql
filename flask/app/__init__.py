@@ -1,9 +1,11 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
+from flask_socketio import SocketIO
 import os
 
 db = SQLAlchemy()
+socketio = SocketIO()
 
 def create_app():
 
@@ -20,8 +22,10 @@ def create_app():
         port=os.environ['RDS_PORT'],
         database=os.environ['RDS_DB_NAME'],
     )
+    app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
 
     db.init_app(app)
+    socketio.init_app(app)
 
     # importing and registering routes with their url prefix
     from .views.main import main_bp
