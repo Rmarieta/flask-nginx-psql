@@ -15,10 +15,10 @@ EXPOSE 5000
 RUN adduser --disabled-password --gecos '' flaskuser
 USER flaskuser
 
-# CMD python application.py
+CMD python application.py
 # CMD python application.py run --debug --host 0.0.0.0
 
 # without Flask-SocketIO
 # CMD gunicorn --access-logfile '-' --workers 1 --threads 4 --bind flask:5000 application:application
 # with Flask-SocketIO
-CMD gunicorn --access-logfile '-' --worker-class eventlet --workers 1 --threads 4 --bind flask:5000 application:application
+# CMD gunicorn --access-logfile '-' --worker-class eventlet --workers 1 --threads 4 --bind flask:5000 application:application

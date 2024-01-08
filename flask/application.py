@@ -1,5 +1,5 @@
-from flask import Flask
-from app import create_app, db
+from flask import Flask, jsonify
+from app import create_app, db, socketio
 from flask.cli import FlaskGroup
 
 application = create_app()
@@ -11,5 +11,13 @@ def create_all():
     with application.app_context():
         db.create_all()
 
+import os
+HOSTNAME = os.uname().nodename
+
+@application.route('/hostname')
+def get_hostname():
+    return jsonify({'hostname': HOSTNAME})
+
 if __name__ == "__main__":
-    cli()
+    # cli()
+    socketio.run(application, debug=True, host='0.0.0.0')
