@@ -1,3 +1,8 @@
+import eventlet  
+
+# perform monkey patching for eventlet
+eventlet.monkey_patch()
+
 from flask import Flask, jsonify
 from app import create_app, db, socketio
 from flask.cli import FlaskGroup
@@ -19,5 +24,5 @@ def get_hostname():
     return jsonify({'hostname': HOSTNAME})
 
 if __name__ == "__main__":
-    # cli()
-    socketio.run(application, debug=True, host='0.0.0.0')
+    cli()
+    # socketio.run(application, debug=True, host='0.0.0.0')

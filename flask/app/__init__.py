@@ -25,7 +25,7 @@ def create_app():
     app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
 
     db.init_app(app)
-    socketio.init_app(app)
+    socketio.init_app(app, message_queue='redis://redis')
 
     # importing and registering routes with their url prefix
     from .views.main import main_bp
