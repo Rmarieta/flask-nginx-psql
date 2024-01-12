@@ -6,7 +6,7 @@ The backend consists in:
 
 - A PostgreSQL database.
 - An Nginx load balancer.
-- Flask containers running behind the load balancer and served over Gunicorn.
+- Flask containers running behind the load balancer and served over Gunicorn to enable multi-threading.
 - A Redis container to coordinate websocket connections/messages while having multiple Flask processes running at the same time.
 
 To start the development containers :
