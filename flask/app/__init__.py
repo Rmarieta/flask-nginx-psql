@@ -15,7 +15,7 @@ def create_app():
         r"/*": {"origins": []}
     })
     
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://{username}:{password}@{host}:{port}/{database}'.format(
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg://{username}:{password}@{host}:{port}/{database}'.format(
         username=os.environ['RDS_USERNAME'],
         password=os.environ['RDS_PASSWORD'],
         host=os.environ['RDS_HOSTNAME'],

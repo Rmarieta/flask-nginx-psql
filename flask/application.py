@@ -1,7 +1,5 @@
-import eventlet  
-
-# perform monkey patching for eventlet
-eventlet.monkey_patch()
+from gevent import monkey
+monkey.patch_all()
 
 from flask import Flask, jsonify
 from app import create_app, db, socketio

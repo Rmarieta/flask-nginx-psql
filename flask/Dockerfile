@@ -19,6 +19,6 @@ USER flaskuser
 # CMD python application.py run --debug --host 0.0.0.0
 
 # without Flask-SocketIO
-# CMD gunicorn --access-logfile '-' --workers 3 --threads 4 --bind 0.0.0.0:5000 application:application
-# with Flask-SocketIO, gunicorn does not support sticky sessions, workers must be 1. eventlet takes care of multi-threading, threads must be 1
-CMD gunicorn --access-logfile '-' --log-level 'debug' --worker-class eventlet --workers 1 --bind 0.0.0.0:5000 application:application
+# CMD gunicorn --access-logfile '-' -w 3 -t 4 -b 0.0.0.0:5000 application:application
+# with Flask-SocketIO, gunicorn does not support sticky sessions, workers must be 1. gevent takes care of multi-threading, threads must be 1
+CMD gunicorn --access-logfile '-' --log-level 'debug' -k gevent -w 1 -b 0.0.0.0:5000 application:application
