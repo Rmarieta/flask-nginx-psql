@@ -11,9 +11,7 @@ def create_app():
 
     app = Flask(__name__)
     
-    cors = CORS(app, resources={
-        r"/*": {"origins": []}
-    })
+    cors = CORS(app, origins='*')
     
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg://{username}:{password}@{host}:{port}/{database}'.format(
         username=os.environ['RDS_USERNAME'],
@@ -25,7 +23,7 @@ def create_app():
     app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
 
     db.init_app(app)
-    socketio.init_app(app, message_queue=os.environ.get('REDIS_MESSAGE_QUEUE_URL'))
+    socketio.init_app(app,  cors_allowed_origins='*', message_queue=os.environ.get('REDIS_MESSAGE_QUEUE_URL'))
 
     # importing and registering routes with their url prefix
     from .views.main import main_bp
