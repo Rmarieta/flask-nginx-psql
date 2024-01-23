@@ -22,5 +22,5 @@ def get_hostname():
     return jsonify({'hostname': HOSTNAME})
 
 if __name__ == "__main__":
-    cli()
-    # socketio.run(application, debug=True, host='0.0.0.0')
+    # cli()
+    socketio.run(application, debug=True, host='0.0.0.0')
