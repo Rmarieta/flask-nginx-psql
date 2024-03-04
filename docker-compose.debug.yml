@@ -24,9 +24,9 @@ services:
       timeout: 5s
       retries: 3
 
-  flask_1:
+  flask:
     build: ./flask
-    container_name: flask_1
+    container_name: flask
     env_file:
       - .env
     command: python application.py
@@ -65,7 +65,7 @@ services:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       # - ./nginx/ssl-certs:/etc/nginx/ssl-certs
     depends_on:
-      - flask_1
+      - flask
       - flask_2
 
 # to persist container volumes
