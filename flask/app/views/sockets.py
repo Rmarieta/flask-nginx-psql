@@ -1,6 +1,26 @@
 from flask_socketio import emit, send, join_room, leave_room
-from app import socketio
+from app import socketio, redis_client
 import os
+from flask import request
+
+@socketio.on('connect')
+def handle_connect():
+    con_type = request.args.get('conType')  # Assuming students are identified by 'student' conType
+    user_id = request.args.get('userId')
+
+    print('\nCONNECT:\n',{ con_type, user_id },'\n')
+
+    if con_type == 'STUDENT':
+        print('\nADDING TO REDIS CLIENT\n')
+        redis_client.sadd('connected_users', user_id)
+
+@socketio.on('disconnect')
+def handle_disconnect():
+    con_type = request.args.get('conType')
+    user_id = request.args.get('userId')
+
+    if con_type == 'STUDENT':
+        redis_client.srem('connected_users', user_id)
 
 @socketio.on('message')
 def handle_message(message):

@@ -3,9 +3,12 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from flask_socketio import SocketIO
 import os
+import redis
 
 db = SQLAlchemy()
 socketio = SocketIO()
+
+redis_client = redis.from_url(os.environ.get('REDIS_MESSAGE_QUEUE_URL'))
 
 def create_app():
 
