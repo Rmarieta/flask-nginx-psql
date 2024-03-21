@@ -9,20 +9,20 @@ The backend consists in:
 - Flask containers running behind the load balancer and served over Gunicorn to enable multi-threading.
 - A Redis container to coordinate websocket connections/messages while having multiple Flask processes running at the same time.
 
-To start the development containers :
+To start the containers, a `run.sh` shell script is provided. It can be run with the following options: 
+
+- `-e`/`--env` : which has to be provided and is either of `debug`, `dev` and `prod`. This will determine which `docker-compose` will be used.
+- `-v`/`--volumes` : if provided, first clears the volumes associated with the containers to start fresh.
+- `-d`/`--detach` : if provided, runs `docker-compose` in detached mode.
+
+For example, to run the `debug` version and start with empty volumes:
 
 ```
-docker-compose up --build
+bash ./run.sh -e debug -v
 ```
 
-To also create the tables the first time (or after clearing the volumes) :
+Then, to bring the containers down and clear the volumes, do:
 
 ```
-docker-compose up -d --build ; docker-compose exec flask<ANY_NUMBER_HERE_IF_MULTIPLE_INSTANCES> bash -c "python application.py create_all"
-```
-
-To bring them down and clear the volumes :
-
-```
-docker-compose down -v
+docker-compose -f docker-compose.debug.yml down -v
 ```
