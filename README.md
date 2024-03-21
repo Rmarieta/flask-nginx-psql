@@ -9,6 +9,8 @@ The backend consists in:
 - Flask containers running behind the load balancer and served over Gunicorn to enable multi-threading.
 - A Redis container to coordinate websocket connections/messages while having multiple Flask processes running at the same time.
 
+To use this code, first rename `.env.example` to `.env` and set your own values.
+
 To start the containers, a `run.sh` shell script is provided. It can be run with the following options: 
 
 - `-e`/`--env` : which has to be provided and is either of `debug`, `dev` and `prod`. This will determine which `docker-compose` will be used.
